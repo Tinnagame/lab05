@@ -1,6 +1,7 @@
 <template>
-<div id="flashEditMessage" v-if="GStore.flashEditMessage"> {{GStore.flashEditMessage}}
-</div>
+  <div id="flashEditMessage" v-if="GStore.flashEditMessage">
+    {{ GStore.flashEditMessage }}
+  </div>
   <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
   <p>{{ event.description }}</p>
 </template>
@@ -8,7 +9,7 @@
 <script>
 export default {
   props: ['event'],
-  inject: ['GStore'],
+  inject: ['GStore']
 }
 </script>
 <style scoped>

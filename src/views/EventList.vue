@@ -47,8 +47,34 @@ export default {
       totalEvents: 0 // <--- Added this to store totalEvents
     }
   },
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        next((comp) => {
+          comp.events = response.data
+          comp.totalEvents = response.headers['x-total-count'] // <--- Store it
+        })
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
+  },
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+  
+    EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        this.events = response.data
+        this.totalEvents = response.headers['x-total-count'] // <--- Store it
+        next()
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
+      
+  },
   created() {
     watchEffect(() => {
+      
       EventService.getEvents(2, this.page)
         .then((response) => {
           this.events = response.data
@@ -56,9 +82,14 @@ export default {
         })
         .catch((error) => {
           console.log(error)
+          this.$route.push({name: 'NetworkError'})
         })
+      
     })
+    
+    
   },
+
   computed: {
     hasNextPage() {
       // First, calculate total pages

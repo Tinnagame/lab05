@@ -9,14 +9,13 @@ export default {
   inject: ['GStore'],
   methods: {
     edit() {
-      this.GStore.flashEditMessage = 
-      'Data has been updated '
+      this.GStore.flashEditMessage = 'Data has been updated '
       setTimeout(() => {
         this.GStore.flashEditMessage = ''
-      },3000)
+      }, 3000)
       this.$router.push({
-        name:'EventDetails',
-        params: {id: this.event.id}
+        name: 'EventDetails',
+        params: { id: this.event.id }
       })
     }
   }
