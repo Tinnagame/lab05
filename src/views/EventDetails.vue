@@ -26,3 +26,17 @@ export default {
   }
 }
 </script>
+<style>
+@keyframes yellowfade {
+  from {
+    background: yellow;
+  }
+  to {
+    background: transparent;
+  }
+}
+#flashMessage {
+  animation-name: yellowfade;
+  animation-duration: 3s;
+}
+</style>
